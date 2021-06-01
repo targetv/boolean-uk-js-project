@@ -44,25 +44,41 @@ header {
 /* Main Section */
 
 main {
-  background-color: rgb(231, 231, 231);
+  background-color: rgb(247, 247, 247);
   display: grid;
-  grid-template-rows: 200px 1fr;
+  grid-template-rows: 250px 1fr;
   padding-top: 40px;
 }
 
 .searchSection {
   display: grid;
   place-items: center;
-  grid-gap: 20px;
 }
 
 .foodheart {
   width: 150px;
 }
 
+.searchInputSection {
+  width: 60%;
+  display: grid;
+
+  position: relative;
+}
+
 .searchSection input {
-  width: 70%;
-  height: 35px;
-  padding: 10px;
-  border-radius: 10pxs;
+  width: 100%;
+  height: 40px;
+  padding: 10px 0px 10px 50px;
+  border-radius: 20px;
+  border: 1px solid #707070;
+  place-self: center;
+}
+
+.searchIcon {
+  position: absolute;
+  width: 23px;
+  fill: #707070;
+  margin-left: 12px;
+  margin-top: 8px;
 }
