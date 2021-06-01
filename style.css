@@ -47,5 +47,22 @@ main {
   background-color: rgb(231, 231, 231);
   display: grid;
   grid-template-rows: 200px 1fr;
-  padding-top: 50px;
+  padding-top: 40px;
+}
+
+.searchSection {
+  display: grid;
+  place-items: center;
+  grid-gap: 20px;
+}
+
+.foodheart {
+  width: 150px;
+}
+
+.searchSection input {
+  width: 70%;
+  height: 35px;
+  padding: 10px;
+  border-radius: 10pxs;
 }
