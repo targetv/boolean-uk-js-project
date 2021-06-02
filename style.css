@@ -156,7 +156,7 @@ main {
   font-size: 3rem;
 }
 
-.button {
+.button-favourite {
   background-color: var(--orange);
   padding: 8px;
   width: 200px;
@@ -164,16 +164,16 @@ main {
   border-radius: 20px;
   color: white;
   text-decoration: none;
-  font-size: 1.5rem;
-  font-weight: bold;
+  font-size: 1.25rem;
 }
 
 li.card {
   width: 20rem;
   height: 30rem;
-  border: black 1px solid;
+  border: #bebebe 1px solid;
   border-radius: 10px;
   display: grid;
+  background-color: white;
   grid-template-rows: 20px 275px 50px 100px;
   padding: 2%;
 }
