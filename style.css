@@ -181,8 +181,7 @@ li.card {
   grid-template-rows: 20px 275px 50px 100px;
   padding: 2%;
 }
-
-div.card #heart-icon {
+li.card #heart-icon {
   width: 30px;
   align-self: start;
 }
