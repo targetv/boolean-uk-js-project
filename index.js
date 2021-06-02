@@ -130,5 +130,3 @@ getUserInput();
 
 const mostFavouriteCardEl = document.querySelector(".most-favourite-card");
 mostFavouriteCardEl.style.display = "none";
-render();
-
