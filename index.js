@@ -1,6 +1,14 @@
 let state = {
   recipes: [],
-  favourites: [],
+  mostfavourite: [
+    {
+      id: 654959,
+      image: "https://spoonacular.com/recipeImages/654959-312x231.jpg",
+      imageType: "jpg",
+      title: "Pasta With Tuna",
+      likes: 0,
+    },
+  ],
 };
 
 function getDataFromApi(userSearch) {
@@ -75,8 +83,31 @@ function renderRecipeCardList() {
   }
 }
 
+function mostFavouriteCard() {
+  const divEl = document.querySelector(".most-favourite-card");
+  const contentSection = createElm("div", { className: "content-section" });
+  const imgEl = createElm("img", {
+    className: "food-image",
+    src: state.mostfavourite[0].image,
+    alt: state.mostfavourite[0].title,
+  });
+  const h3El = createElm("h3", {
+    className: "favourite-h3",
+    innerText: state.mostfavourite[0].title,
+  });
+  h3El.classList.add("color-blue");
+  const buttonEl = createElm("a", {
+    href: "#",
+    className: "button-favourite",
+    innerText: "RECIPE",
+  });
+  contentSection.append(imgEl, h3El, buttonEl);
+  divEl.append(contentSection);
+}
+
 function render() {
   renderRecipeCardList();
+  mostFavouriteCard();
 }
 
 function createElm(tag, attobj) {
