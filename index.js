@@ -88,6 +88,10 @@ function renderRecipeCardList() {
     }
   }
 }
+function setState(setState) {
+  state = { ...state, ...setState };
+  render();
+}
 
 function mostFavouriteCard() {
   mostFavouriteCardEl.style.display = "block";
