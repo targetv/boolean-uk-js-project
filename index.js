@@ -84,6 +84,7 @@ function renderRecipeCardList() {
 }
 
 function mostFavouriteCard() {
+  mostFavouriteCardEl.style.display = "block";
   const divEl = document.querySelector(".most-favourite-card");
   const contentSection = createElm("div", { className: "content-section" });
   const imgEl = createElm("img", {
@@ -107,6 +108,7 @@ function mostFavouriteCard() {
 
 function render() {
   renderRecipeCardList();
+
   mostFavouriteCard();
 }
 
@@ -119,3 +121,5 @@ function createElm(tag, attobj) {
 }
 
 getUserInput();
+const mostFavouriteCardEl = document.querySelector(".most-favourite-card");
+mostFavouriteCardEl.style.display = "none";
