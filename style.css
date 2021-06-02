@@ -116,20 +116,16 @@ main {
   scroll-snap-align: start;
   grid-gap: 30px;
 }
-
-.card {
-  border: 1px solid #bebebe;
-  height: 200px;
-  background-color: white;
-  border-radius: 10px;
-}
-
 .most-favourite-card {
   width: 80%;
   height: 300px;
   margin-bottom: 50px;
   display: grid;
   grid-template-rows: 50px 1fr;
+  border: 1px solid #bebebe;
+  height: 200px;
+  background-color: white;
+  border-radius: 10px;
 }
 
 .most-favourite-heart {
