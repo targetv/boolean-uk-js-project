@@ -36,6 +36,12 @@ function renderRecipeCard(recipe) {
   const liEl = document.createElement("li");
   liEl.setAttribute("class", "card");
 
+  const heartEl = createElm("img", {
+    id: "heart-icon",
+    src: "heart.svg",
+    alt: "heart",
+  });
+
   const imgEl = createElm("img", {
     className: "recipe-image",
     src: recipe.image,
@@ -47,7 +53,7 @@ function renderRecipeCard(recipe) {
   });
 
   const btnDivEl = createElm("div", {
-    class: "button",
+    className: "button",
   });
 
   const btnEl = createElm("button", {
@@ -57,7 +63,7 @@ function renderRecipeCard(recipe) {
 
   btnDivEl.append(btnEl);
 
-  liEl.append(imgEl, h3El, btnDivEl);
+  liEl.append(heartEl, imgEl, h3El, btnDivEl);
 
   return liEl;
 }
@@ -121,5 +127,8 @@ function createElm(tag, attobj) {
 }
 
 getUserInput();
+
 const mostFavouriteCardEl = document.querySelector(".most-favourite-card");
 mostFavouriteCardEl.style.display = "none";
+render();
+
