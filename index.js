@@ -4,7 +4,6 @@ let state = {
 };
 
 function getDataFromApi(userSearch) {
-    
   fetch(
     `https://api.spoonacular.com/recipes/complexSearch/?apiKey=4730c6e1cbe144e1bf35eaee02a816d9&query=${userSearch}`
   )
@@ -26,15 +25,14 @@ function getUserInput() {
 }
 
 function renderRecipeCard(recipe) {
-
   const liEl = document.createElement("li");
   liEl.setAttribute("class", "card");
 
   const heartEl = createElm("img", {
-      id: "heart-icon",
-      src: "heart.svg",
-      alt: "heart"
-    })
+    id: "heart-icon",
+    src: "heart.svg",
+    alt: "heart",
+  });
 
   const imgEl = createElm("img", {
     className: "recipe-image",
@@ -47,7 +45,7 @@ function renderRecipeCard(recipe) {
   });
 
   const btnDivEl = createElm("div", {
-    class: "button",
+    className: "button",
   });
 
   const btnEl = createElm("button", {
@@ -96,4 +94,4 @@ function createElm(tag, attobj) {
 }
 
 getUserInput();
-render()
+render();
