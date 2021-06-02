@@ -83,7 +83,7 @@ main {
   margin-top: 8px;
 }
 
-div.card {
+li.card {
   width: 20rem;
   height: 30rem;
   border: black 1px solid;
@@ -94,7 +94,7 @@ div.card {
   
 }
 
-div.card #heart-icon {
+li.card #heart-icon {
   width: 30px;
   align-self: start;
 }
