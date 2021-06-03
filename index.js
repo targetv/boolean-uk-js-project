@@ -39,7 +39,6 @@ function renderRecipeCard(recipe) {
       (favRecipe) => favRecipe.id === recipe.id
     );
     if (findRecipeId) {
-      updateLikes()
       setState({
         mostfavourite: state.mostfavourite.map(function (item) {
           if (item.id === recipe.id) {
@@ -48,6 +47,7 @@ function renderRecipeCard(recipe) {
             return item;
           }
         }),
+        updateLikes()
       });
     } else {
       postToSever({
