@@ -21,5 +21,30 @@
       "title": "What to make for dinner tonight?? Bruschetta Style Pork & Pasta"
     }
   ],
-  "favourites": []
+  "favourites": [
+    {
+      "id": 715412,
+      "image": "https://spoonacular.com/recipeImages/715412-312x231.jpg",
+      "title": "Kiwi Popsicles – Summer Popsicle Series",
+      "likes": 4
+    },
+    {
+      "id": 631814,
+      "image": "https://spoonacular.com/recipeImages/631814-312x231.jpg",
+      "title": "$50,000 Burger",
+      "likes": 1
+    },
+    {
+      "id": 663357,
+      "image": "https://spoonacular.com/recipeImages/663357-312x231.jpg",
+      "title": "The Unagi Burger",
+      "likes": 5
+    },
+    {
+      "id": 651190,
+      "image": "https://spoonacular.com/recipeImages/651190-312x231.jpg",
+      "title": "Masala-Tofu Burger",
+      "likes": 1
+    }
+  ]
 }

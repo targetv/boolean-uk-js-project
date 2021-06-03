@@ -14,6 +14,13 @@ function getDataFromApi(userSearch) {
       render();
     });
 }
+function getFavouritesFromSever() {
+  fetch("http://localhost:3000/favourites")
+    .then((response) => response.json())
+    .then((data) => {
+      state.favourites = data;
+    });
+}
 
 function getUserInput() {
   const formEl = document.querySelector("form");
@@ -21,6 +28,7 @@ function getUserInput() {
     event.preventDefault();
     const userSearch = formEl["search-bar-recipes"].value;
     getDataFromApi(userSearch);
+    getFavouritesFromSever();
     formEl.reset();
   });
 }
@@ -125,28 +133,26 @@ function setState(setState) {
   state = { ...state, ...setState };
   render();
 }
-
 function favouritesCard() {
   favouritesCardEl.style.display = "grid";
   const divEl = document.querySelector(".most-favourite-card");
-  divEl.innerHTML = "";
-  const contentSection = createElm("div", { className: "content-section" });
-  const test = state.favourites;
+  const contentSection = document.querySelector(".content-section");
+  contentSection.innerHTML = " ";
+  const favouritesRecipes = state.favourites;
+
   let mostPopular = null;
-  for (const randomtest of test) {
+  for (const recipes of favouritesRecipes) {
     if (mostPopular === null) {
-      mostPopular = randomtest;
+      mostPopular = recipes;
       console.log(mostPopular);
     } else {
-      if (mostPopular.likes < randomtest.likes) {
-        mostPopular = randomtest;
+      if (mostPopular.likes < recipes.likes) {
+        mostPopular = recipes;
       }
     }
   }
   state.mostPopular = mostPopular;
   console.log(state.mostPopular);
-
-  console.log(test);
 
   const imgEl = createElm("img", {
     className: "food-image",
@@ -165,7 +171,6 @@ function favouritesCard() {
   });
   contentSection.append(imgEl, h3El, buttonEl);
   divEl.append(contentSection);
-  debugger;
 }
 
 function render() {
@@ -184,7 +189,7 @@ function createElm(tag, attobj) {
 function updateLikes(recipe) {
   console.log(recipe.id);
 
-  fetch(`http://localhost:3000/favourites/${recipe.id}`, {
+  return fetch(`http://localhost:3000/favourites/${recipe.id}`, {
     method: "PATCH",
     headers: {
       "Content-Type": "application/json",
