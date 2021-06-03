@@ -193,6 +193,52 @@ function updateLikes(recipe) {
   });
 }
 
+function renderMainRecipe() {
+
+  const recipeSectionEl = document.querySelector('.main-recipe-section')
+
+  const recipeTitleEl = document.createElement('h2')
+  recipeTitleEl.setAttribute('class', "main-recipe-title")
+  recipeTitleEl.innerText = recipe.title
+
+  const recipeImageEl = document.createElement('img')
+  recipeImageEl.setAttribute('class', "main-recipe-image")
+  recipeImageEl.setAttribute('src', recipe.image)
+  recipeImageEl.setAttribute('class', recipe.title)
+
+  const recipeIngredientsTitleEl = document.createElement('h3')
+  recipeIngredientsTitleEl.setAttribute('class', "main-recipe")
+  recipeIngredientsTitleEl.innerText = 'Ingredients'
+
+  const recipeIngredientListEl = document.createElement('ul')
+
+  for (const ingredient of ingredients) {
+
+    const liEl = document.createElement('li')
+    liEl.innerText = recipe.ingredient
+    recipeIngredientListEl.append(liEl)
+
+  }
+
+  const recipeMethodTitleEl = document.createElement('h3')
+  recipeMethodTitleEl.setAttribute('class', "main-recipe")
+  recipeMethodTitleEl.innerText = 'Method'
+
+  const recipeMethodEl = document.createElement('ul')
+
+  for (const step of method) {
+
+    const liEl = document.createElement('li')
+    liEl.innerText = recipe.step
+    recipeMethodEl.append(liEl)
+
+  }
+
+  recipeSectionEl.append(recipeTitleEl, recipeImageEl, recipeIngredientsTitleEl, recipeIngredientListEl, recipeMethodTitleEl, recipeMethodEl
+    )
+
+}
+
 getUserInput();
 
 const favouritesCardEl = document.querySelector(".most-favourite-card");
