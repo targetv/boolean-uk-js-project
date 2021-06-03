@@ -1,6 +1,7 @@
 let state = {
   recipes: [],
-  mostfavourite: [],
+  favourites: [],
+  mostPopular: null,
 };
 
 function getDataFromApi(userSearch) {
@@ -35,12 +36,12 @@ function renderRecipeCard(recipe) {
   });
 
   heartEl.addEventListener("click", function () {
-    const findRecipeId = state.mostfavourite.find(
+    const findRecipeId = state.favourites.find(
       (favRecipe) => favRecipe.id === recipe.id
     );
     if (findRecipeId) {
       setState({
-        mostfavourite: state.mostfavourite.map(function (item) {
+        favourites: state.favourites.map(function (item) {
           if (item.id === recipe.id) {
             return { ...item, likes: item.likes + 1 };
           } else {
@@ -57,7 +58,7 @@ function renderRecipeCard(recipe) {
       }).then((response) => {
         if (response.ok) {
           setState({
-            mostfavourite: [...state.mostfavourite, { ...recipe, likes: 1 }],
+            favourites: [...state.favourites, { ...recipe, likes: 1 }],
           });
         } else {
           console.warn("Data already exists on sever");
@@ -88,12 +89,11 @@ function renderRecipeCard(recipe) {
   btnDivEl.append(btnEl);
 
   liEl.append(heartEl, imgEl, h3El, btnDivEl);
-
   return liEl;
 }
 
 function postToSever(object) {
-  return fetch("http://localhost:3000/mostfavourite", {
+  return fetch("http://localhost:3000/favourites", {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
@@ -116,19 +116,36 @@ function setState(setState) {
   render();
 }
 
-function mostFavouriteCard() {
-  mostFavouriteCardEl.style.display = "grid";
+function favouritesCard() {
+  favouritesCardEl.style.display = "grid";
   const divEl = document.querySelector(".most-favourite-card");
   divEl.innerHTML = "";
   const contentSection = createElm("div", { className: "content-section" });
+  const test = state.favourites;
+  let mostPopular = null;
+  for (const randomtest of test) {
+    if (mostPopular === null) {
+      mostPopular = randomtest;
+      console.log(mostPopular);
+    } else {
+      if (mostPopular.likes < randomtest.likes) {
+        mostPopular = randomtest;
+      }
+    }
+  }
+  state.mostPopular = mostPopular;
+  console.log(state.mostPopular);
+
+  console.log(test);
+
   const imgEl = createElm("img", {
     className: "food-image",
-    src: state.mostfavourite[0].image,
-    alt: state.mostfavourite[0].title,
+    src: state.mostPopular.image,
+    alt: state.mostPopular.title,
   });
   const h3El = createElm("h3", {
     className: "favourite-h3",
-    innerText: state.mostfavourite[0].title,
+    innerText: state.mostPopular.title,
   });
   h3El.classList.add("color-blue");
   const buttonEl = createElm("a", {
@@ -138,12 +155,12 @@ function mostFavouriteCard() {
   });
   contentSection.append(imgEl, h3El, buttonEl);
   divEl.append(contentSection);
+  debugger;
 }
 
 function render() {
   renderRecipeCardList();
-
-  mostFavouriteCard();
+  favouritesCard();
 }
 
 function createElm(tag, attobj) {
@@ -156,5 +173,5 @@ function createElm(tag, attobj) {
 
 getUserInput();
 
-const mostFavouriteCardEl = document.querySelector(".most-favourite-card");
-mostFavouriteCardEl.style.display = "none";
+const favouritesCardEl = document.querySelector(".most-favourite-card");
+favouritesCardEl.style.display = "none";
