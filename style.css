@@ -210,3 +210,28 @@ h3 {
   border: none;
   font-size: 1.25rem;
 }
+
+section.main-recipe {
+  display: grid;
+  grid-template-rows: 150px 400px 50px 400px 50px 400px;
+  padding: 2rem;
+  border: solid grey 1px;
+  margin: 5rem 20rem 5rem 20rem;
+}
+
+h2.main-recipe-title {
+  justify-self: center;
+  align-self: center;
+  }
+
+img.main-recipe-image {
+  width: 300px;
+  height: 300px;
+  object-fit: cover;
+  justify-self: center;
+}
+
+h3.main-recipe {
+  justify-self: start;
+  margin-left: 5rem;
+}
