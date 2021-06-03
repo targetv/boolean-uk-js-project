@@ -45,6 +45,12 @@
       "image": "https://spoonacular.com/recipeImages/651190-312x231.jpg",
       "title": "Masala-Tofu Burger",
       "likes": 1
+    },
+    {
+      "id": 654928,
+      "image": "https://spoonacular.com/recipeImages/654928-312x231.jpg",
+      "title": "Pasta With Italian Sausage",
+      "likes": 10
     }
   ]
 }

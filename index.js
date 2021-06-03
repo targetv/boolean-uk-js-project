@@ -36,12 +36,19 @@ function getUserInput() {
 function renderRecipeCard(recipe) {
   const liEl = document.createElement("li");
   liEl.setAttribute("class", "card");
+  const heartsEl = document.createElement("div");
 
   const heartEl = createElm("img", {
-    id: "heart-icon",
+    className: "heart-icon",
     src: "heart.svg",
     alt: "heart",
   });
+  const blackHeartEl = createElm("img", {
+    className: "heart-icon",
+    src: "blackheart.svg",
+    alt: "heart",
+  });
+  heartsEl.append(heartEl, blackHeartEl);
 
   heartEl.addEventListener("click", function () {
     const findRecipeId = state.favourites.find(
@@ -106,7 +113,7 @@ function renderRecipeCard(recipe) {
 
   btnDivEl.append(btnEl);
 
-  liEl.append(heartEl, imgEl, h3El, btnDivEl);
+  liEl.append(heartsEl, imgEl, h3El, btnDivEl);
   return liEl;
 }
 
@@ -123,7 +130,7 @@ function postToSever(object) {
 function renderRecipeCardList() {
   const ulEl = document.querySelector(".container");
   ulEl.innerHTML = " ";
-  const newRecipe = state.recipes.slice(0, 6);
+  const newRecipe = state.recipes.slice(0, 8);
   for (const recipe of newRecipe) {
     const liEl = renderRecipeCard(recipe);
     ulEl.append(liEl);
@@ -133,6 +140,7 @@ function setState(setState) {
   state = { ...state, ...setState };
   render();
 }
+
 function favouritesCard() {
   favouritesCardEl.style.display = "grid";
   const divEl = document.querySelector(".most-favourite-card");
