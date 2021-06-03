@@ -6,7 +6,7 @@ let state = {
 
 function getDataFromApi(userSearch) {
   fetch(
-    `https://api.spoonacular.com/recipes/complexSearch/?apiKey=4730c6e1cbe144e1bf35eaee02a816d9&query=${userSearch}`
+    `https://api.spoonacular.com/recipes/complexSearch/?apiKey=7b5359c91fd640e2b76f99adf52924cc&query=${userSearch}`
   )
     .then((response) => response.json())
     .then((data) => {
@@ -40,15 +40,24 @@ function renderRecipeCard(recipe) {
       (favRecipe) => favRecipe.id === recipe.id
     );
     if (findRecipeId) {
-      setState({
-        favourites: state.favourites.map(function (item) {
-          if (item.id === recipe.id) {
-            return {...item, likes: item.likes + 1 };
-          } else {
-            return item;
-          }
-        }),
-        updateLikes()
+      console.log(recipe.likes);
+      updateLikes({
+        id: recipe.id,
+        likes: findRecipeId.likes + 1,
+      }).then((response) => {
+        if (response.ok) {
+          setState({
+            favourites: state.favourites.map(function (item) {
+              if (item.id === recipe.id) {
+                return { ...item, likes: item.likes + 1 };
+              } else {
+                return item;
+              }
+            }),
+          });
+        } else {
+          console.warn("Error");
+        }
       });
     } else {
       postToSever({
@@ -172,16 +181,16 @@ function createElm(tag, attobj) {
   return elm;
 }
 
-function updateLikes() {
+function updateLikes(recipe) {
+  console.log(recipe.id);
 
-  fetch(`http://http://localhost:3000/favourites${recipe.id}`, {
-
-  method: 'PATCH',
-  headers: {
-    "content-type": "application/json"
-  },
-  body: stringify({likes: likes})
-  })
+  fetch(`http://localhost:3000/favourites/${recipe.id}`, {
+    method: "PATCH",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify(recipe),
+  });
 }
 
 getUserInput();
