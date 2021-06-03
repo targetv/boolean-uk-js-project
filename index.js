@@ -43,11 +43,12 @@ function renderRecipeCard(recipe) {
       setState({
         favourites: state.favourites.map(function (item) {
           if (item.id === recipe.id) {
-            return { ...item, likes: item.likes + 1 };
+            return {...item, likes: item.likes + 1 };
           } else {
             return item;
           }
         }),
+        updateLikes()
       });
     } else {
       postToSever({
@@ -169,6 +170,18 @@ function createElm(tag, attobj) {
     elm[key] = attobj[key];
   }
   return elm;
+}
+
+function updateLikes() {
+
+  fetch(`http://http://localhost:3000/favourites${recipe.id}`, {
+
+  method: 'PATCH',
+  headers: {
+    "content-type": "application/json"
+  },
+  body: stringify({likes: likes})
+  })
 }
 
 getUserInput();
