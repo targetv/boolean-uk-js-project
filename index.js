@@ -290,7 +290,7 @@ function renderMainRecipe(recipe) {
   const recipeImageEl = document.createElement("img");
   recipeImageEl.setAttribute("class", "main-recipe-image");
   recipeImageEl.setAttribute("src", recipe.image);
-  recipeImageEl.setAttribute("class", recipe.title);
+  recipeImageEl.setAttribute("alt", recipe.title);
 
   const recipeIngredientsTitleEl = document.createElement("h3");
   recipeIngredientsTitleEl.setAttribute("class", "main-recipe");
