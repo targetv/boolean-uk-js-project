@@ -167,7 +167,8 @@ function renderRecipeCard(recipe) {
     innerText: "RECIPE",
   });
   btnEl.addEventListener("click", function () {
-    renderMainRecipe(recipe)
+    mainRecipeSection.style.display = "grid";
+    renderMainRecipe(recipe);
   });
 
   btnDivEl.append(btnEl);
@@ -189,13 +190,12 @@ function postToSever(object) {
 function renderRecipeCardList() {
   const ulEl = document.querySelector(".container");
   ulEl.innerHTML = " ";
-  let newRecipe = state.recipes.slice();
+  let newRecipe = state.recipes.slice(0, 8);
   if (vegan) {
     newRecipe = state.recipes.filter((recipe) => recipe.vegan === true);
   } else if (vegetarian) {
     newRecipe = state.recipes.filter((recipe) => recipe.vegetarian === true);
   }
-  newRecipe.slice(0, 8);
   for (const recipe of newRecipe) {
     const liEl = renderRecipeCard(recipe);
     ulEl.append(liEl);
@@ -240,7 +240,7 @@ function favouritesCard() {
   });
   h3El.classList.add("color-blue");
   const buttonEl = createElm("a", {
-    href: "#",
+    href: "#test",
     className: "button-favourite",
     innerText: "RECIPE",
   });
@@ -305,7 +305,6 @@ function renderMainRecipe(recipe) {
   const recipeMethodEl = document.createElement("ul");
 
   for (const i of recipe.analyzedInstructions[0].steps) {
-  
     const liEl = document.createElement("li");
     liEl.innerText = i.step;
     recipeMethodEl.append(liEl);
@@ -330,6 +329,7 @@ function isUserFilter() {
 }
 
 const favouritesCardEl = document.querySelector(".most-favourite-card");
+const mainRecipeSection = document.querySelector(".main-recipe-section");
 
 isUserFilter();
 getUserInput();
