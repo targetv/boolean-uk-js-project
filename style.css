@@ -59,18 +59,35 @@ header {
 
 main {
   background-color: rgb(247, 247, 247);
-  display: grid;
-  grid-template-rows: 250px 1fr;
+
   padding-top: 40px;
 }
 
 .searchSection {
+  grid-area: search;
   display: grid;
   place-items: center;
 }
 
+aside {
+  grid-area: menu;
+  border: 1px solid #bebebe;
+  padding: 10px;
+  height: 100px;
+  display: grid;
+  place-content: center;
+}
+aside ul {
+  display: grid;
+  place-items: center;
+  grid-template-columns: 1fr;
+}
 .foodheart {
   width: 150px;
+}
+
+.cardsSection .wrapper {
+  width: 90%;
 }
 
 .searchInputSection {
@@ -100,8 +117,13 @@ main {
 .cardsSection {
   display: grid;
   margin-top: 40px;
-  grid-template-rows: repeat(2, 1fr);
+  grid-template:
+    "menu cards" 1fr
+    "fav fav" 1fr/
+    2fr 8fr;
+
   grid-gap: 30px;
+  grid-area: cards;
 }
 
 .small-cards-container {
@@ -120,12 +142,13 @@ main {
 .most-favourite-card {
   height: 300px;
   margin-bottom: 50px;
-  display: grid;
+  display: none;
   grid-template-rows: 50px 1fr;
   border: 1px solid #bebebe;
   background-color: white;
   border-radius: 10px;
   justify-self: center;
+  grid-area: fav;
 }
 
 .most-favourite-heart {
@@ -222,7 +245,7 @@ section.main-recipe {
 h2.main-recipe-title {
   justify-self: center;
   align-self: center;
-  }
+}
 
 img.main-recipe-image {
   width: 300px;
