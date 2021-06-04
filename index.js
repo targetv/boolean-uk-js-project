@@ -281,7 +281,9 @@ function updateLikes(recipe) {
 }
 
 function renderMainRecipe(recipe) {
+
   const recipeSectionEl = document.querySelector(".main-recipe-section");
+  recipeSectionEl.innerHTML = "";
 
   const recipeTitleEl = document.createElement("h2");
   recipeTitleEl.setAttribute("class", "main-recipe-title");
