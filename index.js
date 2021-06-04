@@ -1,6 +1,25 @@
 let state = {
   recipes: [],
-  favourites: [],
+  favourites: [
+    {
+      id: 663357,
+      image: "https://spoonacular.com/recipeImages/663357-312x231.jpg",
+      title: "The Unagi Burger",
+      likes: 5,
+    },
+    {
+      id: 651190,
+      image: "https://spoonacular.com/recipeImages/651190-312x231.jpg",
+      title: "Masala-Tofu Burger",
+      likes: 1,
+    },
+    {
+      id: 654928,
+      image: "https://spoonacular.com/recipeImages/654928-312x231.jpg",
+      title: "Pasta With Italian Sausage",
+      likes: 10,
+    },
+  ],
   mostPopular: null,
   vegan: false,
   vegetarian: false,
@@ -23,6 +42,12 @@ function getFavouritesFromSever() {
     .then((data) => {
       state.favourites = data;
     });
+}
+
+function deleteFromSever(recipe) {
+  return fetch(`http://localhost:3000/favourites/${recipe.id}`, {
+    method: "DELETE",
+  });
 }
 
 function getUserInput() {
@@ -52,6 +77,34 @@ function renderRecipeCard(recipe) {
     alt: "heart",
   });
   heartsEl.append(heartEl, blackHeartEl);
+
+  blackHeartEl.addEventListener("click", function () {
+    const getId = state.favourites.findIndex((test) => test.id === recipe.id);
+    const findRecipeId = state.favourites.find(
+      (favRecipe) => favRecipe.id === recipe.id
+    );
+    if (findRecipeId.likes === 1) {
+      deleteFromSever(findRecipeId).then((response) => {
+        if (response.ok) {
+          state.favourites.splice(getId, 1);
+          console.log(state.favourites);
+          render();
+        } else {
+          console.warn("Something went wrong with delete");
+        }
+      });
+    }
+    setState({
+      favourites: state.favourites.map(function (item) {
+        console.log(getId);
+        if (item.id === recipe.id) {
+          return { ...item, likes: item.likes - 1 };
+        } else {
+          return item;
+        }
+      }),
+    });
+  });
 
   heartEl.addEventListener("click", function () {
     const findRecipeId = state.favourites.find(
@@ -158,12 +211,12 @@ function favouritesCard() {
   const contentSection = document.querySelector(".content-section");
   contentSection.innerHTML = " ";
   const favouritesRecipes = state.favourites;
+  console.log("fav", favouritesRecipes);
 
   let mostPopular = null;
   for (const recipes of favouritesRecipes) {
     if (mostPopular === null) {
       mostPopular = recipes;
-      console.log(mostPopular);
     } else {
       if (mostPopular.likes < recipes.likes) {
         mostPopular = recipes;
@@ -171,6 +224,7 @@ function favouritesCard() {
     }
   }
   state.mostPopular = mostPopular;
+  console.log(state.favourites);
   console.log(state.mostPopular);
 
   const imgEl = createElm("img", {
