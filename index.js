@@ -27,7 +27,7 @@ let state = {
 
 function getDataFromApi(userSearch) {
   fetch(
-    `https://api.spoonacular.com/recipes/complexSearch/?apiKey=4dd67b37210b4a2c953bdd036ee130db&query=${userSearch}&addRecipeInformation=true&fillIngredients=true&addRecipeNutrition=true&number=100`
+    `https://api.spoonacular.com/recipes/complexSearch/?apiKey=5067564400d442bf90ecfbfd3fee6f43&query=${userSearch}&addRecipeInformation=true&fillIngredients=true&addRecipeNutrition=true&number=100`
   )
     .then((response) => response.json())
     .then((data) => {
@@ -281,7 +281,6 @@ function updateLikes(recipe) {
 }
 
 function renderMainRecipe(recipe) {
-
   const recipeSectionEl = document.querySelector(".main-recipe-section");
   recipeSectionEl.innerHTML = "";
 
