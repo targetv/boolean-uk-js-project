@@ -27,7 +27,7 @@ let state = {
 
 function getDataFromApi(userSearch) {
   fetch(
-    `https://api.spoonacular.com/recipes/complexSearch/?apiKey=cce924f11d2847618ea435adf7d64232&query=${userSearch}&addRecipeInformation=true&fillIngredients=true&addRecipeNutrition=true&number=100`
+    `https://api.spoonacular.com/recipes/complexSearch/?apiKey=4730c6e1cbe144e1bf35eaee02a816d9&query=${userSearch}&addRecipeInformation=true&fillIngredients=true&addRecipeNutrition=true&number=100`
   )
     .then((response) => response.json())
     .then((data) => {
@@ -166,7 +166,9 @@ function renderRecipeCard(recipe) {
     className: "get-recipe",
     innerText: "RECIPE",
   });
-  btnEl.addEventListener("click", function () {});
+  btnEl.addEventListener("click", function () {
+    renderMainRecipe(recipe)
+  });
 
   btnDivEl.append(btnEl);
 
@@ -290,21 +292,22 @@ function renderMainRecipe(recipe) {
 
   const recipeIngredientListEl = document.createElement("ul");
 
-  for (const ingredient of ingredients) {
+  for (const ingredient of recipe.nutrition.ingredients) {
     const liEl = document.createElement("li");
-    liEl.innerText = recipe.ingredient;
+    liEl.innerText = `${ingredient.name}, ${ingredient.amount}, ${ingredient.unit}`;
     recipeIngredientListEl.append(liEl);
   }
 
   const recipeMethodTitleEl = document.createElement("h3");
   recipeMethodTitleEl.setAttribute("class", "main-recipe");
-  recipeMethodTitleEl.innerText = "Method";
+  recipeMethodTitleEl.innerText = "Instructions";
 
   const recipeMethodEl = document.createElement("ul");
 
-  for (const step of method) {
+  for (const i of recipe.analyzedInstructions[0].steps) {
+  
     const liEl = document.createElement("li");
-    liEl.innerText = recipe.step;
+    liEl.innerText = i.step;
     recipeMethodEl.append(liEl);
   }
 

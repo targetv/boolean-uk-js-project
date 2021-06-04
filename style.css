@@ -79,9 +79,10 @@ aside {
 }
 aside ul {
   display: grid;
-  place-items: center;
   grid-template-columns: 1fr;
+  grid-gap: 1rem;
 }
+
 .foodheart {
   width: 150px;
 }
@@ -234,7 +235,7 @@ h3 {
   font-size: 1.25rem;
 }
 
-section.main-recipe {
+section.main-recipe-section {
   display: grid;
   grid-template-rows: 150px 400px 50px 400px 50px 400px;
   padding: 2rem;
@@ -256,5 +257,4 @@ img.main-recipe-image {
 
 h3.main-recipe {
   justify-self: start;
-  margin-left: 5rem;
 }
