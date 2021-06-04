@@ -21,14 +21,17 @@ let state = {
     },
   ],
   mostPopular: null,
+  vegan: false,
+  vegetarian: false,
 };
 
 function getDataFromApi(userSearch) {
   fetch(
-    `https://api.spoonacular.com/recipes/complexSearch/?apiKey=7b5359c91fd640e2b76f99adf52924cc&query=${userSearch}`
+    `https://api.spoonacular.com/recipes/complexSearch/?apiKey=cce924f11d2847618ea435adf7d64232&query=${userSearch}&addRecipeInformation=true&fillIngredients=true&addRecipeNutrition=true&number=100`
   )
     .then((response) => response.json())
     .then((data) => {
+      console.log(data);
       state.recipes = data.results;
       render();
     });
@@ -163,6 +166,7 @@ function renderRecipeCard(recipe) {
     className: "get-recipe",
     innerText: "RECIPE",
   });
+  btnEl.addEventListener("click", function () {});
 
   btnDivEl.append(btnEl);
 
@@ -183,12 +187,19 @@ function postToSever(object) {
 function renderRecipeCardList() {
   const ulEl = document.querySelector(".container");
   ulEl.innerHTML = " ";
-  const newRecipe = state.recipes.slice(0, 8);
+  let newRecipe = state.recipes.slice();
+  if (vegan) {
+    newRecipe = state.recipes.filter((recipe) => recipe.vegan === true);
+  } else if (vegetarian) {
+    newRecipe = state.recipes.filter((recipe) => recipe.vegetarian === true);
+  }
+  newRecipe.slice(0, 8);
   for (const recipe of newRecipe) {
     const liEl = renderRecipeCard(recipe);
     ulEl.append(liEl);
   }
 }
+
 function setState(setState) {
   state = { ...state, ...setState };
   render();
@@ -236,6 +247,7 @@ function favouritesCard() {
 }
 
 function render() {
+  isUserFilter();
   renderRecipeCardList();
   favouritesCard();
 }
@@ -260,53 +272,61 @@ function updateLikes(recipe) {
   });
 }
 
-function renderMainRecipe() {
+function renderMainRecipe(recipe) {
+  const recipeSectionEl = document.querySelector(".main-recipe-section");
 
-  const recipeSectionEl = document.querySelector('.main-recipe-section')
+  const recipeTitleEl = document.createElement("h2");
+  recipeTitleEl.setAttribute("class", "main-recipe-title");
+  recipeTitleEl.innerText = recipe.title;
 
-  const recipeTitleEl = document.createElement('h2')
-  recipeTitleEl.setAttribute('class', "main-recipe-title")
-  recipeTitleEl.innerText = recipe.title
+  const recipeImageEl = document.createElement("img");
+  recipeImageEl.setAttribute("class", "main-recipe-image");
+  recipeImageEl.setAttribute("src", recipe.image);
+  recipeImageEl.setAttribute("class", recipe.title);
 
-  const recipeImageEl = document.createElement('img')
-  recipeImageEl.setAttribute('class', "main-recipe-image")
-  recipeImageEl.setAttribute('src', recipe.image)
-  recipeImageEl.setAttribute('class', recipe.title)
+  const recipeIngredientsTitleEl = document.createElement("h3");
+  recipeIngredientsTitleEl.setAttribute("class", "main-recipe");
+  recipeIngredientsTitleEl.innerText = "Ingredients";
 
-  const recipeIngredientsTitleEl = document.createElement('h3')
-  recipeIngredientsTitleEl.setAttribute('class', "main-recipe")
-  recipeIngredientsTitleEl.innerText = 'Ingredients'
-
-  const recipeIngredientListEl = document.createElement('ul')
+  const recipeIngredientListEl = document.createElement("ul");
 
   for (const ingredient of ingredients) {
-
-    const liEl = document.createElement('li')
-    liEl.innerText = recipe.ingredient
-    recipeIngredientListEl.append(liEl)
-
+    const liEl = document.createElement("li");
+    liEl.innerText = recipe.ingredient;
+    recipeIngredientListEl.append(liEl);
   }
 
-  const recipeMethodTitleEl = document.createElement('h3')
-  recipeMethodTitleEl.setAttribute('class', "main-recipe")
-  recipeMethodTitleEl.innerText = 'Method'
+  const recipeMethodTitleEl = document.createElement("h3");
+  recipeMethodTitleEl.setAttribute("class", "main-recipe");
+  recipeMethodTitleEl.innerText = "Method";
 
-  const recipeMethodEl = document.createElement('ul')
+  const recipeMethodEl = document.createElement("ul");
 
   for (const step of method) {
-
-    const liEl = document.createElement('li')
-    liEl.innerText = recipe.step
-    recipeMethodEl.append(liEl)
-
+    const liEl = document.createElement("li");
+    liEl.innerText = recipe.step;
+    recipeMethodEl.append(liEl);
   }
 
-  recipeSectionEl.append(recipeTitleEl, recipeImageEl, recipeIngredientsTitleEl, recipeIngredientListEl, recipeMethodTitleEl, recipeMethodEl
-    )
-
+  recipeSectionEl.append(
+    recipeTitleEl,
+    recipeImageEl,
+    recipeIngredientsTitleEl,
+    recipeIngredientListEl,
+    recipeMethodTitleEl,
+    recipeMethodEl
+  );
 }
 
-getUserInput();
+function isUserFilter() {
+  const vegetarian = document.querySelector("#vegetarian").checked;
+
+  state.vegetarian = vegetarian;
+  const vegan = document.querySelector("#vegan").checked;
+  state.vegan = vegan;
+}
 
 const favouritesCardEl = document.querySelector(".most-favourite-card");
-favouritesCardEl.style.display = "none";
+
+isUserFilter();
+getUserInput();
