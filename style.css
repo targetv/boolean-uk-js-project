@@ -225,7 +225,7 @@ h3 {
   place-self: center;
 }
 
-.button button {
+.button a {
   width: 200px;
   border-radius: 30px;
   height: 50px;

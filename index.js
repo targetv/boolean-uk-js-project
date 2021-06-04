@@ -27,7 +27,7 @@ let state = {
 
 function getDataFromApi(userSearch) {
   fetch(
-    `https://api.spoonacular.com/recipes/complexSearch/?apiKey=4730c6e1cbe144e1bf35eaee02a816d9&query=${userSearch}&addRecipeInformation=true&fillIngredients=true&addRecipeNutrition=true&number=100`
+    `https://api.spoonacular.com/recipes/complexSearch/?apiKey=4dd67b37210b4a2c953bdd036ee130db&query=${userSearch}&addRecipeInformation=true&fillIngredients=true&addRecipeNutrition=true&number=100`
   )
     .then((response) => response.json())
     .then((data) => {
@@ -56,6 +56,7 @@ function getUserInput() {
     event.preventDefault();
     const userSearch = formEl["search-bar-recipes"].value;
     getDataFromApi(userSearch);
+    isUserFilter();
     getFavouritesFromSever();
     formEl.reset();
   });
@@ -162,8 +163,9 @@ function renderRecipeCard(recipe) {
     className: "button",
   });
 
-  const btnEl = createElm("button", {
-    className: "get-recipe",
+  const btnEl = createElm("a", {
+    href: "#main-recipe",
+    className: "button-favourite",
     innerText: "RECIPE",
   });
   btnEl.addEventListener("click", function () {
@@ -190,12 +192,16 @@ function postToSever(object) {
 function renderRecipeCardList() {
   const ulEl = document.querySelector(".container");
   ulEl.innerHTML = " ";
-  let newRecipe = state.recipes.slice(0, 8);
-  if (vegan) {
-    newRecipe = state.recipes.filter((recipe) => recipe.vegan === true);
-  } else if (vegetarian) {
-    newRecipe = state.recipes.filter((recipe) => recipe.vegetarian === true);
+  let newRecipe = state.recipes;
+  console.log(newRecipe);
+  if (state.vegan === true) {
+    newRecipe = newRecipe.filter((recipe) => recipe.vegan === true);
   }
+  if (state.vegetarian === true) {
+    newRecipe = newRecipe.filter((recipe) => recipe.vegetarian === true);
+    console.log("vege");
+  }
+  newRecipe.slice(0, 8);
   for (const recipe of newRecipe) {
     const liEl = renderRecipeCard(recipe);
     ulEl.append(liEl);
@@ -240,7 +246,7 @@ function favouritesCard() {
   });
   h3El.classList.add("color-blue");
   const buttonEl = createElm("a", {
-    href: "#test",
+    href: "#main-recipe",
     className: "button-favourite",
     innerText: "RECIPE",
   });
@@ -322,8 +328,9 @@ function renderMainRecipe(recipe) {
 
 function isUserFilter() {
   const vegetarian = document.querySelector("#vegetarian").checked;
-
+  console.log(vegetarian);
   state.vegetarian = vegetarian;
+  console.log(state.vegetarian);
   const vegan = document.querySelector("#vegan").checked;
   state.vegan = vegan;
 }
@@ -331,5 +338,4 @@ function isUserFilter() {
 const favouritesCardEl = document.querySelector(".most-favourite-card");
 const mainRecipeSection = document.querySelector(".main-recipe-section");
 
-isUserFilter();
 getUserInput();
